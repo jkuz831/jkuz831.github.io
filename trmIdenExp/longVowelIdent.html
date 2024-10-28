@@ -627,9 +627,9 @@ function finish() {
     linkToPrefilledGoogleForm = 'https://docs.google.com/forms/d/e/1FAIpQLSc1aX3wS_am6_2Ny514yX9tQesllDFFsXjhkaBn627dTl0pbA/viewform?usp=pp_url&entry.873945936=' + participantID;
     //                  Justine: https://docs.google.com/forms/d/e/1FAIpQLSeZkgvLJtpdoHSYwz_UbGytqLV7XEEZlAKpC2rZfo67g2RLDw/viewform?usp=pp_url&entry.1797296953=
     //                   Jenice: https://docs.google.com/forms/d/e/1FAIpQLSc1aX3wS_am6_2Ny514yX9tQesllDFFsXjhkaBn627dTl0pbA/viewform?usp=pp_url&entry.873945936=
-    linkToPrefillQualtrics = 'https://auckland.au1.qualtrics.com/jfe/form/SV_aVjg6I7NFM7akxU?Q_PopulateResponse={%22QID1%22:%22' + participantID + "%22}";
+    //linkToPrefillQualtrics = 'https://auckland.au1.qualtrics.com/jfe/form/SV_aVjg6I7NFM7akxU?Q_PopulateResponse={%22QID1%22:%22' + participantID + "%22}";
     DOM_target.innerHTML ='<p style="text-align: center;">This is the end of the listening task. Thank you very much for your participation! </p><br/>\
-    <p style="text-align: center;">Please click <a href="' + linkToPrefillQualtrics + '",target="_blank">here</a> to proceed to the demographics survey. </p>' ; 
+    <p style="text-align: center;">Please click <a href="' + linkToPrefilledGoogleForm + '",target="_blank">here</a> to proceed to the demographics survey. </p>' ; 
     jsPsych.pluginAPI.cancelAllKeyboardResponses(); 
     jsPsych.pluginAPI.clearAllTimeouts();
 }; 
