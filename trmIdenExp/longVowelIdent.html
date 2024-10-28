@@ -113,7 +113,7 @@ localSave = 0;
 $.ajax({
     type: "GET", 
     async: false, 
-    url: "trmIdenExp/stimuli/consent_1.txt", 
+    url: "stimuli/consent_1.txt", 
     dataType: "text", 
     success: function(txt) {consent=txtJSON(txt);}
 });
@@ -124,7 +124,7 @@ $.ajax({
 $.ajax({
     type: "GET", 
     async: false, 
-    url: "trmIdenExp/stimuli/fcnf_instructions.txt", 
+    url: "stimuli/fcnf_instructions.txt", 
     dataType: "text", 
     success: function(txt) {inst=txtJSON(txt);}
 });
@@ -136,7 +136,7 @@ $.ajax({
 $.ajax({
     type: "GET", 
     async: false, 
-    url: "trmIdenExp/stimuli/hVt_stimuli.csv", 
+    url: "stimuli/hVt_stimuli.csv", 
     dataType: "text", 
     success: function(csv) {hVt_words=csvJSON(csv)}
 });
