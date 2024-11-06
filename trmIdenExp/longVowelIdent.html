@@ -34,7 +34,8 @@
     <script src="jspsych/plugin-survey-html-form.js"></script> 
     <script src="jspsych/plugin-audio-keyboard-response.js"></script> 
     <script src="jspsych/plugin-categorize-html.js"></script>
-    <script src="jspsych/plugin-html-button-response.js"></script> 
+    <script src="jspsych/plugin-html-button-response.js"></script>
+    <script src="jspsych/plugin-preload.js"></script>
     <!-- Loads the css file with the standard formatting -->
     <link href="jspsych/jspsych.css" rel="stylesheet" type="text/css"></link>
     
@@ -66,6 +67,11 @@
   			border-color: #ccc;
 		}
 
+        .city {
+            padding: 0px 15px;
+            margin: 4px;
+        }
+
 		.snd-btn:hover {
   			box-shadow: 0 0px 8px 0 rgba(0,0,0,0.48), 0 0px 25px 0 rgba(0,0,0,0.38);
 		}
@@ -76,7 +82,7 @@
 		}
 		
 		/* Modify height and width here to adjust the size of the buttons */
-		.jspsych-html-button-response-button .jspsych-btn{font-size: 150%;width: 5em;height:3em;}
+		.jspsych-html-button-response-button .jspsych-btn{font-size: 150%;width: 5em;height:5cm;}
         
     </style>
 
@@ -102,11 +108,22 @@ inst = ''; // Variable for storing the instructions
 hVt_words=[]; // Variable for storing the input data (csv)
 kVkV_words=[];
 noOfRepetitions = 3; // will be multiplied by 2
-stimuli_continuum = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+//stimuli_continuum = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+stimuli_continuum = [1, 2, 4, 6, 8, 10];
 practice_continuum = [1, 10]; 
 consent = '';
 participantID = '';
 localSave = 0;
+
+/**
+//Set the image file path 
+const a1 = 'img/' + currentWord.option_1 + '.png';
+        const image1 = document.getElementById("image_1");
+        image1.src = a1;
+
+    const a2 = 'img/' + currentWord.option_2 + '.png';
+        const image2 = document.getElementById("image_2");
+        image2.src = a2; **/
 /*********************************************************************************/
 /****************************** Reading file data ********************************/
 /*********************************************************************************/
@@ -186,8 +203,18 @@ var jsPsych = initJsPsych({
 });
 
 participantID = jsPsych.randomization.randomID(8);
-jsPsych.data.addProperties({participantID: participantID}); //add participant ID      
+jsPsych.data.addProperties({participantID: participantID}); //add participant ID
 
+/*********************************************************************************/
+/****************************** Preloading media *********************************/
+/*********************************************************************************/
+// the "auto_preload: true" setting tells the plugin to automatically find 
+// stimuli to preload based the main experiment timeline (used in jsPsych.run)
+var preload = {
+    type: jsPsychPreload,
+    auto_preload: true,
+    show_detailed_errors: true
+}
 
 /*********************************************************************************/
 /******************************** Consent block **********************************/
@@ -318,14 +345,18 @@ for(var i=0; i<fcnf_words.length; i++){
                         stimulus: 'sound/'+ currentWord.sound+'_'+ fcnf_trials[k] + '.wav', 
                         prompt: '<img src="img/sound.jpg" height="200" width="200">', 
                         choices: "NO_KEYS", 
-                        trial_duration: 5000, 
+                        trial_duration: 3000, 
                     }
                 );
                 fcnf_block.push(
                     {
                         type: jsPsychHtmlButtonResponse, 
                         stimulus: '<h1>What word did you hear?</h1>', 
-                        choices: [currentWord.textOption_1,currentWord.textOption_2], 
+                        //choices: [currentWord.textOption_1,currentWord.textOption_2],
+                        choices: [
+                        '<img src="img/' + currentWord.textOption_1 + '.png" height="75" width="80"><p class="city">' + currentWord.textOption_1 + '</p>',
+                        '<img src="img/' + currentWord.textOption_2 + '.png" height="75" width="80"><p class="city">' + currentWord.textOption_2 + '</p>'
+                        ], 
                         data: {phase: 'iden_exp', 
                                 word: currentWord.word, 
                                 block: block,
@@ -367,19 +398,23 @@ for(var i=0; i<fcnf_words.length; i++){
                         stimulus: 'sound/'+ currentWord.sound+'_'+ fcnf_trials[k] + '.wav', 
                         prompt: '<img src="img/sound.jpg" height="200" width="200">', 
                         choices: "NO_KEYS", 
-                        trial_duration: 5000, 
+                        trial_duration: 3000, 
                     }
                 );
                 fcnf_block.push(
                     {
                         type: jsPsychHtmlButtonResponse, 
                         stimulus: '<h1>What word did you hear?</h1>', 
-                        choices: [currentWord.textOption_2,currentWord.textOption_1], 
+                        //choices: [currentWord.textOption_2,currentWord.textOption_1],
+                        choices: [
+                        '<img src="img/' + currentWord.textOption_2 + '.png" height="75" width="80"><p class="city">' + currentWord.textOption_2 + '</p>',
+                        '<img src="img/' + currentWord.textOption_1 + '.png" height="75" width="80"><p class="city">' + currentWord.textOption_1 + '</p>'
+                        ], 
                         data: {phase: 'iden_exp', 
                                 word: currentWord.word, 
                                 block: block,
                                 stimulus: fcnf_trials[k], 
-                                option_0: currentWord.option_1, 
+                                option_0: currentWord.option_1,
                                 option_1: currentWord.option_2, 
                                 //sound: currentWord.sound
                             },
@@ -422,18 +457,25 @@ for(var i=0; i<kVkV_words.length; i++){
                     stimulus: 'sound/'+ currentWord.sound+'_'+ practice_continuum[k] + '.wav', 
                     prompt: '<img src="img/sound.jpg" height="200" width="200">', 
                     choices: "NO_KEYS", 
-                    trial_duration: 5000, 
+                    trial_duration: 3000, 
                 }
             );
             practice_block.push(
                 {
                     type: jsPsychHtmlButtonResponse, 
-                    stimulus: '<h1>What word did you hear?</h1>', 
-                    choices: [currentWord.textOption_1,currentWord.textOption_2], 
+                    stimulus: '<h1>What word did you hear?</h1>',
+                    //choices: ['<img src="" id="image_1" height="75" width="80">', '<img src="" id="image_2" height="70" width="80">'],
+                    //choices: ['<img src="img/' + currentWord.textOption_1 + '.png"height="75" width="80">', '<img src="img/' + currentWord.textOption_2 + '.png"height="75" width="80">'],
+                    //choices: [currentWord.textOption_1,currentWord.textOption_2],
+                    //button_html: ['<img src="img/' + currentWord.textOption_1 + '.png></img>', '<img src="img/' + currentWord.textOption_2 + '.png></img>'],
+                    choices: [
+                        '<img src="img/' + currentWord.textOption_1 + '.png" height="75" width="80"><p class="city">' + currentWord.textOption_1 + '</p>',
+                        '<img src="img/' + currentWord.textOption_2 + '.png" height="75" width="80"><p class="city">' + currentWord.textOption_2 + '</p>'
+                    ],
                     data: {phase: 'practice', 
                             word: currentWord.word, 
                             stimulus: practice_continuum[k], 
-                            option_0: currentWord.option_1, 
+                            option_0: currentWord.option_1,
                             option_1: currentWord.option_2, 
                             //sound: currentWord.sound
                         },
@@ -574,7 +616,6 @@ function csvJSON(csv){
   //return JSON.stringify(result); //JSON
 };
 
-
 /* save data function */
 function submitData(filedata){
     
@@ -605,6 +646,33 @@ function playSound(){
 	x.play();
 }
 
+/* Function to chnage file path for image */
+function changeImage(){
+    var imgPath_1 = 'img/' + currentWord.textOption_1 + '.png';
+    var x = document.getElementById("wordImage_1");
+    x.src = imgPath_1;
+
+    var imgPath_2 = 'img/' + currentWord.textOption_2 + '.png';
+    var y = document.getElementById("wordImage_2");
+    y.src = imgPath_2;
+}
+
+/**
+    if (word == "kaka" || "kakā"){
+        button_img1.src = "img/kaka.png";
+        button_img2.src = "img/kakā.png";
+    } else if(word == "keke" || "kekē"){
+        button_img1.src = "img/keke.png";
+        button_img2.src = "img/kekē.png";
+    }else if(word == "koko" || "kokō"){
+        button_img1.src = "img/koko.png";
+        button_img2.src = "img/kokō.png";
+    }
+}
+
+const a1 = 'img/' + currentWord.option_1 + '.png';
+        const image1 = document.getElementById("image_1");
+        image1.src = a1;**/
 
 /* time stamp function, format YYYYMMDDhhmmss*/
 function stamp(){
@@ -644,6 +712,7 @@ var timeline = [];
 /**	List your blocks here in the order you want them to appear
 	follow the same format as for the current blocks.
 **/
+timeline = timeline.concat(preload);
 timeline = timeline.concat(consent_block);
 timeline = timeline.concat(sound_test);
 timeline = timeline.concat(fcnf_instructions_block);
