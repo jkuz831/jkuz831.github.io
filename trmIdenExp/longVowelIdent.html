@@ -82,7 +82,7 @@
 		}
 		
 		/* Modify height and width here to adjust the size of the buttons */
-		.jspsych-html-button-response-button .jspsych-btn{font-size: 150%;width: 5em;height:5cm;}
+		.jspsych-html-button-response-button .jspsych-btn{font-size: 150%;width: 5em;height:3em;}
         
     </style>
 
@@ -352,11 +352,11 @@ for(var i=0; i<fcnf_words.length; i++){
                     {
                         type: jsPsychHtmlButtonResponse, 
                         stimulus: '<h1>What word did you hear?</h1>', 
-                        //choices: [currentWord.textOption_1,currentWord.textOption_2],
-                        choices: [
-                        '<img src="img/' + currentWord.textOption_1 + '.png" height="75" width="80"><p class="city">' + currentWord.textOption_1 + '</p>',
-                        '<img src="img/' + currentWord.textOption_2 + '.png" height="75" width="80"><p class="city">' + currentWord.textOption_2 + '</p>'
-                        ], 
+                        choices: [currentWord.textOption_1,currentWord.textOption_2],
+                        //choices: [
+                        //'<img src="img/' + currentWord.textOption_1 + '.png" height="75" width="80"><p class="city">' + currentWord.textOption_1 + '</p>',
+                        //'<img src="img/' + currentWord.textOption_2 + '.png" height="75" width="80"><p class="city">' + currentWord.textOption_2 + '</p>'
+                        //], 
                         data: {phase: 'iden_exp', 
                                 word: currentWord.word, 
                                 block: block,
@@ -405,11 +405,11 @@ for(var i=0; i<fcnf_words.length; i++){
                     {
                         type: jsPsychHtmlButtonResponse, 
                         stimulus: '<h1>What word did you hear?</h1>', 
-                        //choices: [currentWord.textOption_2,currentWord.textOption_1],
-                        choices: [
-                        '<img src="img/' + currentWord.textOption_2 + '.png" height="75" width="80"><p class="city">' + currentWord.textOption_2 + '</p>',
-                        '<img src="img/' + currentWord.textOption_1 + '.png" height="75" width="80"><p class="city">' + currentWord.textOption_1 + '</p>'
-                        ], 
+                        choices: [currentWord.textOption_2,currentWord.textOption_1],
+                        //choices: [
+                        //'<img src="img/' + currentWord.textOption_2 + '.png" height="75" width="80"><p class="city">' + currentWord.textOption_2 + '</p>',
+                        //'<img src="img/' + currentWord.textOption_1 + '.png" height="75" width="80"><p class="city">' + currentWord.textOption_1 + '</p>'
+                        //], 
                         data: {phase: 'iden_exp', 
                                 word: currentWord.word, 
                                 block: block,
@@ -464,14 +464,11 @@ for(var i=0; i<kVkV_words.length; i++){
                 {
                     type: jsPsychHtmlButtonResponse, 
                     stimulus: '<h1>What word did you hear?</h1>',
-                    //choices: ['<img src="" id="image_1" height="75" width="80">', '<img src="" id="image_2" height="70" width="80">'],
-                    //choices: ['<img src="img/' + currentWord.textOption_1 + '.png"height="75" width="80">', '<img src="img/' + currentWord.textOption_2 + '.png"height="75" width="80">'],
-                    //choices: [currentWord.textOption_1,currentWord.textOption_2],
-                    //button_html: ['<img src="img/' + currentWord.textOption_1 + '.png></img>', '<img src="img/' + currentWord.textOption_2 + '.png></img>'],
-                    choices: [
-                        '<img src="img/' + currentWord.textOption_1 + '.png" height="75" width="80"><p class="city">' + currentWord.textOption_1 + '</p>',
-                        '<img src="img/' + currentWord.textOption_2 + '.png" height="75" width="80"><p class="city">' + currentWord.textOption_2 + '</p>'
-                    ],
+                    choices: [currentWord.textOption_1,currentWord.textOption_2],
+                    //choices: [
+                    //    '<img src="img/' + currentWord.textOption_1 + '.png" height="75" width="80"><p class="city">' + currentWord.textOption_1 + '</p>',
+                    //    '<img src="img/' + currentWord.textOption_2 + '.png" height="75" width="80"><p class="city">' + currentWord.textOption_2 + '</p>'
+                    //],
                     data: {phase: 'practice', 
                             word: currentWord.word, 
                             stimulus: practice_continuum[k], 
